@@ -128,9 +128,3 @@ It is perfect for **college projects, resumes, and interviews**.
 
 
 
-
-
-
-
-
-### 1️⃣ Install required package
