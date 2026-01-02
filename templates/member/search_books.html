@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{ background:#f4f6f9; }
+        .table-box{
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+            margin-top:40px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/member/dashboard">📚 Member Panel</a>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="table-box">
+        <h3 class="text-center mb-4">🔍 Search Books</h3>
+
+        <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search by title or author">
+
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Available</th>
+                </tr>
+            </thead>
+
+            <tbody id="bookTable">
+            {% for b in books %}
+<tr>
+    <td>{{ b[1] }}</td>   <!-- title -->
+    <td>{{ b[2] }}</td>   <!-- author -->
+    <td>{{ b[3] }}</td>   <!-- category -->
+    <td>
+        {% if b[4] > 0 %}
+            <span class="text-success">Available ({{ b[4] }})</span>
+        {% else %}
+            <span class="text-danger">Not Available</span>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+        let value = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#bookTable tr");
+
+        rows.forEach(row => {
+            row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+        });
+    });
+</script>
+
+</body>
+</html>

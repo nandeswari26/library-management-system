@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{ background:#f4f6f9; }
+        .table-box{
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+            margin-top:40px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/admin/dashboard">📚 Library Admin</a>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="table-box">
+        <h3 class="text-center mb-4">📊 Issue & Return Reports</h3>
+
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Issue ID</th>
+                    <th>Book ID</th>
+                    <th>User ID</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Return Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for r in data %}
+                <tr>
+                    <td>{{ r[0] }}</td>
+                    <td>{{ r[1] }}</td>
+                    <td>{{ r[2] }}</td>
+                    <td>{{ r[3] }}</td>
+                    <td>{{ r[4] }}</td>
+                    <td>
+                        {% if r[5] %}
+                            {{ r[5] }}
+                        {% else %}
+                            <span class="text-danger">Not Returned</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
